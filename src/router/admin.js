@@ -1,6 +1,8 @@
 
 import Admin from '../admin/index';
 import Login from '../admin/Login';
+import UserList from '../admin/userList';
+import UserRevise from '../admin/userRevise';
 
 const admin = [
     {
@@ -9,9 +11,19 @@ const admin = [
         component: Admin,
         children :[
             {
-                path: 'login',
-                name: 'Login',
-                component: Login
+                path: '',
+                name: 'UserList',
+                component: UserList
+            },
+            {
+                path: 'userList',
+                name: 'UserList',
+                component: UserList
+            },
+            {
+                path: 'userRevise',
+                name: 'UserRevise',
+                component: UserRevise
             }
         ]
     },

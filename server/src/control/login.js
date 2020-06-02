@@ -65,7 +65,7 @@ const Login = async function (req, res) {
 
     const token = jwt.sign({...params}, scret, { expiresIn: 86400 });
     res.cookie('token', token, { path: '/', secure: false, signed: false });
-    res.cookie('user_name', token, { path: '/', secure: false, signed: false });
+    res.cookie('user_name', params.user_name, { path: '/', secure: false, signed: false });
     return resSuc(res, 'ok');
 
 }

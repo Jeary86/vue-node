@@ -1,4 +1,4 @@
-const {Register , DelUser} = require('../server/register');
+const {Register , DelUser ,UpdateUser} = require('../server/register');
 const { resErr, resSuc } = require('../common/response');
 const myCrypto = require('../common/crypto');
 const moment = require('moment');
@@ -19,16 +19,31 @@ const register = async function (req, res) {
 }
 
 const delUser = async function (req, res) {
-    let params = req.body.user_id;
-
-    console.log(req.body.user_id)
+    let params = req.body.user_id | '';
 
     let result = await DelUser(params);
     if (result === 1) return resErr(res);
     return resSuc(res, '删除成功');
 }
 
+const updateUser = async function (req, res) {
+    let params = {
+        user_id : req.body.user_id | '',
+        user_name : '',
+        user_password : ''
+    };
+
+    Object.assign(params, req.body);
+
+    params.user_password = myCrypto(params.user_password);
+
+    let result = await UpdateUser(params);
+    if (result === 1) return resErr(res);
+    return resSuc(res, '修改成功');
+}
+
 module.exports = {
     register,
-    delUser
+    delUser,
+    updateUser
 };
