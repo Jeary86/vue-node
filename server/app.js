@@ -1,11 +1,12 @@
-var createError = require('http-errors');
-var express = require('express');
-var ejs = require('ejs');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var lessMiddleware = require('less-middleware');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const ejs = require('ejs');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const lessMiddleware = require('less-middleware');
+const logger = require('morgan');
 const setHead = require('./src/common/head');
+const session = require('express-session');
 
 
 
@@ -14,6 +15,11 @@ const app = express();
 const router = express.Router();
 const users = require('./routes/index');
 
+
+app.use(session({
+    secret: 'test secret',
+    cokkie: { maxAge: 60 * 1000 * 300 } //过期时间 ms
+}))
 
 // view engine setup
 app.engine('html',ejs.__express);
@@ -30,12 +36,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.all('*', setHead); //设置白名单,等一些请求头
 
 app.use('/api/', users(router));
-
-// var indexRouter = require('./routes/index');
-// var usersRouter = require('./routes/users');
-
-// app.use('/', indexRouter);
-// app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

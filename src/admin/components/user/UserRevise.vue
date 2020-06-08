@@ -12,7 +12,7 @@
 </template>
 
 <script>
-    import Server from "../util/Server";
+    import Server from "@/util/Server";
     export default {
         name: "userRevise",
         data(){
@@ -22,7 +22,7 @@
                     password: ''
                 },
                 loading: false,
-                userId : this.$route.query.id
+                userId : this.$route.params && this.$route.params.id
             }
         },
         mounted(){
@@ -42,7 +42,18 @@
                         console.log(res)
 
                         if (res.code == 0){
+                            this.$message({
+                                showClose: true,
+                                message: res.data,
+                                type: 'success'
+                            });
                             this.$router.go(-1);
+                        }else {
+                            this.$message({
+                                showClose: true,
+                                message: res.data,
+                                type: 'error'
+                            });
                         }
                     })
             }

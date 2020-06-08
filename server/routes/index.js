@@ -1,9 +1,9 @@
-
 const { Login , clearUser, getUser , setUser ,UserInfo} = require('../src/control/login');
 const Product = require('../src/control/product');
 const {register , delUser ,updateUser} = require('../src/control/register');
 
 const routers = (router) => {
+
     /** 首页 **/
     router.get('/', function(req, res, next) {
         res.render('index', { title: 'Express' });

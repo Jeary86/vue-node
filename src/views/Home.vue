@@ -2,7 +2,7 @@
     <div class="home">
         <div id="nav">
             <router-link to="/">前端</router-link> |
-            <router-link to="/login">后端</router-link>
+            <router-link to="/admin">后端</router-link>
         </div>
 
         <img alt="Vue logo" src="../assets/logo.png">
@@ -44,3 +44,17 @@
         }
     }
 </script>
+<style lang="less" scoped>
+    #nav {
+        padding: 30px;
+
+        a {
+            font-weight: bold;
+            color: #2c3e50;
+
+            &.router-link-exact-active {
+                color: #42b983;
+            }
+        }
+    }
+</style>

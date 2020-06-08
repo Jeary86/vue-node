@@ -1,5 +1,6 @@
 const {Register , DelUser ,UpdateUser} = require('../server/register');
-const { resErr, resSuc } = require('../common/response');
+const isEmpty = require('../common/isEmpty');
+const { resErr, resSuc ,resEmp} = require('../common/response');
 const myCrypto = require('../common/crypto');
 const moment = require('moment');
 const register = async function (req, res) {
@@ -11,11 +12,19 @@ const register = async function (req, res) {
 
     Object.assign(params, req.body);
 
+    const isempty = isEmpty(params);
+
+    if (isempty) {
+        return resEmp(res);
+    }
+
+    // if (params.user_password === '') return resSuc(res,'密码不能为空');
+
     params.user_password = myCrypto(params.user_password);
 
     let result = await Register(params);
     if (result === 1) return resErr(res);
-    return resSuc(res, '注册成功');
+    return resSuc(res, '添加用户成功');
 }
 
 const delUser = async function (req, res) {
@@ -34,6 +43,12 @@ const updateUser = async function (req, res) {
     };
 
     Object.assign(params, req.body);
+
+    const isempty = isEmpty(params);
+
+    if (isempty) {
+        return resEmp(res);
+    }
 
     params.user_password = myCrypto(params.user_password);
 
