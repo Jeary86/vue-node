@@ -66,7 +66,7 @@
                     })
             },
             onHanderReviseUser(e){
-                this.$router.push({ path:'/admin/userRevise/'+e})
+                this.$router.push({ path:'/admin/user/userRevise/'+e})
             }
         }
     }
@@ -75,7 +75,6 @@
 <style lang="less" scoped>
     .user-list{
         width:100%;
-        padding:0 20px;
     }
     .el-button{
         font-size:16px;

@@ -4,7 +4,7 @@
             <el-input v-model="username" placeholder="请输入账号" prefix-icon="el-icon-user-solid"></el-input>
             <br/>
             <br/>
-            <el-input placeholder="请输入密码" v-model="password" prefix-icon="el-icon-s-tools" show-password></el-input>
+            <el-input placeholder="请输入密码" v-model="password" prefix-icon="el-icon-s-tools"></el-input>
             <br/>
             <br/>
             <el-button :loading="loading" style="width:100%" type="primary" @click.native.prevent="handleRevise">提交</el-button>

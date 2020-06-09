@@ -31,9 +31,6 @@
                 </div>
                 <el-dropdown-menu slot="dropdown">
                     <el-dropdown-item @click.native="clearHandleLogin">退出</el-dropdown-item>
-                    <!--<el-dropdown-item divided @click.native="clearHandleLogin">-->
-                        <!--<span style="display:block;">Log Out</span>-->
-                    <!--</el-dropdown-item>-->
                 </el-dropdown-menu>
             </el-dropdown>
         </div>
@@ -63,10 +60,6 @@
         },
         watch: {
             $route(route) {
-                // if you go to the redirect page, do not update the breadcrumbs
-                if (route.path.startsWith('/redirect/')) {
-                    return
-                }
                 this.getBreadcrumb()
             }
         },
@@ -93,7 +86,26 @@
                 }
                 return name.trim().toLocaleLowerCase() === 'Admin'.toLocaleLowerCase()
             },
+            pathCompile(path) {
+                const { params } = this.$route
+                var toPath = pathToRegexp.compile(path)
+                return toPath(params)
+            },
+            handleLink(item) {
+                let t = this;
+                const { redirect, path} = item
+                // console.log(redirect)
+                if (redirect) {
+                    t.$router.push(redirect)
+                    return
+                }
+                console.log(t.pathCompile(path))
+                t.$router.push(t.pathCompile(path))
+            },
 
+            toggleClick() {
+                this.isActive = !this.isActive
+            },
             clearHandleLogin(){
                 Server.getCallApi('/clearUser')
                     .then(res =>{
@@ -102,27 +114,6 @@
                         }
                     })
             },
-            pathCompile(path) {
-                const { params } = this.$route
-                var toPath = pathToRegexp.compile(path)
-                return toPath(params)
-            },
-            handleLink(item) {
-                let t = this;
-                const { redirect, path } = item
-
-                if (redirect) {
-                    t.$router.push(redirect)
-                    // console.log(redirect)
-                    return
-                }
-
-                t.$router.push(t.pathCompile(path))
-            },
-
-            toggleClick() {
-                this.isActive = !this.isActive
-            }
         }
     }
 </script>

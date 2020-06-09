@@ -1,102 +1,77 @@
 import Admin from '../admin/Index';
+import AppMain from '../admin/AppMain';
 import Login from '../admin/Login';
 
 const admin = [
     {
         path: '/admin',
         component: Admin,
-        redirect: '/admin',
+        redirect: '/admin/index',
         children :[
             {
-                path: '/admin',
+                path: 'index',
                 name: 'Admin',
                 component: () => import('@/admin/components/index/Index'),
-                meta: { title: '首页'},
-            }
+                meta: { title: '首页',icon:'el-icon-s-home'},
+            },
+            {
+                path: 'case',
+                component: AppMain,
+                redirect: 'case-list',
+                name: '案例管理',
+                meta: {
+                    title: '项目管理',icon:'el-icon-picture'
+                },
+                children: [
+                    {
+                        path: 'case-list',
+                        name: '案例列表',
+                        component: () => import('../admin/components/case/CaseList'),
+                        meta: { title: '案例列表' }
+                    },
+                    {
+                        path: 'add-case',
+                        name: '新建案例',
+                        component: () => import('../admin/components/case/AddCase'),
+                        meta: { title: '新建案例' },
+
+                    },
+
+                ]
+            },
+            {
+                path: 'user',
+                component: AppMain,
+                redirect : '/admin/user/userList',
+                name: '用户管理',
+                meta: {
+                    title: '用户管理',icon:'el-icon-user-solid'
+                },
+                children :[
+                    {
+                        path: 'userList',
+                        name: 'UserList',
+                        component: () => import('../admin/components/user/UserList'),
+                        meta: { title: '用户列表'},
+                    },
+                    {
+                        path: 'add-user',
+                        name: 'AddUser',
+                        component: () => import('../admin/components/user/AddUser'),
+                        meta: { title: '添加用户'},
+                    },
+                    {
+                        path: 'userRevise/:id(\\d+)',
+                        name: 'UserRevise',
+                        component: () => import('../admin/components/user/UserRevise'),
+                        meta: { title: '修改', noCache: true, activeMenu: '/admin/user/userList'},
+                        hidden: true
+                    }
+                ]
+            },
+
         ]
     },
-
-    {
-        path: '/admin/userList',
-        component: Admin,
-        name: '用户管理',
-        meta: {
-            title: '用户管理'
-        },
-        redirect : '/admin/userList',
-        children :[
-            {
-                path: '',
-                name: 'UserList',
-                component: () => import('../admin/components/user/UserList'),
-                meta: { title: '用户列表'},
-            },
-            {
-                path: 'userList',
-                name: 'UserList',
-                component: () => import('../admin/components/user/AddUser'),
-                meta: { title: '添加用户'},
-            },
-            {
-                path: '/admin/userRevise/:id',
-                name: 'UserRevise',
-                component: () => import('../admin/components/user/UserRevise'),
-                meta: { title: '修改'},
-                hidden: true
-            }
-        ]
-    },
-
-    {
-        path: '/table',
-        component: Admin,
-        redirect: '/table/complex-table',
-        name: 'Table',
-        meta: {
-            title: 'Table'
-        },
-        children: [
-            {
-                path: 'dynamic-table',
-                // component: () => import('@/views/table/dynamic-table/index'),
-                name: 'DynamicTable',
-                meta: { title: 'Dynamic Table' }
-            },
-            {
-                path: 'drag-table',
-                // component: () => import('@/views/table/drag-table'),
-                name: 'DragTable',
-                meta: { title: 'Drag Table' }
-            },
-            {
-                path: 'inline-edit-table',
-                // component: () => import('@/views/table/inline-edit-table'),
-                name: 'InlineEditTable',
-                meta: { title: 'Inline Edit' }
-            },
-            {
-                path: 'complex-table',
-                // component: () => import('@/views/table/complex-table'),
-                name: 'ComplexTable',
-                meta: { title: 'Complex Table' }
-            }
-        ]
-    },
-
-    // {
-    //     path: '/admin/userList',
-    //     name: 'UserList',
-    //     component: () => import('../admin/components/user/userList'),
-    //     meta: { title: '用户列表'},
-    //     hidden: true
-    // },
-    // {
-    //     path: 'userRevise/:id',
-    //     name: 'UserRevise',
-    //     component: () => import('../admin/components/user/userRevise'),
-    //     meta: { title: '修改'},
-    //     hidden: true
-    // },
     {
         path: '/login',
         name: 'Login',

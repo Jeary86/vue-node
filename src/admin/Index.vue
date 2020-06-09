@@ -3,9 +3,11 @@
         <Sidebar/>
         <div class="main-container">
             <Navbar :name="this.userName" />
-            <transition name="fade-transform" mode="out-in">
-                <router-view />
-            </transition>
+            <div class="view-container">
+                <transition name="fade-transform" mode="out-in">
+                    <router-view />
+                </transition>
+            </div>
         </div>
     </div>
 </template>
@@ -58,6 +60,10 @@
         min-height: 100%;
         margin-left: 210px;
         position: relative;
+        .view-container{
+            width:100%;
+            padding:0 40px;
+        }
     }
 }
 </style>

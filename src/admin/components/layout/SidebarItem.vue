@@ -15,9 +15,10 @@
 
         <template v-if="hasOneShowingChild(item.children,item) && (!onlyOneChild.children||onlyOneChild.noShowingChildren)&&!item.alwaysShow">
 
-            <router-link :to="resolvePath(onlyOneChild.path)">
-                <el-menu-item :index="resolvePath(onlyOneChild.path)">
-                    <span @click="onClickAAA(resolvePath(onlyOneChild.path))"> {{onlyOneChild.meta.title}} </span>
+            <router-link :to="routeLink(onlyOneChild.path)">
+                <el-menu-item :index="routeLink(onlyOneChild.path)">
+                    <i class="item-icon" :class="onlyOneChild.meta.icon"></i>
+                    <span class="item-title" @click="onClickAAA(routeLink(onlyOneChild.path))"> {{onlyOneChild.meta.title}} </span>
                 </el-menu-item>
             </router-link>
 
@@ -25,7 +26,8 @@
 
         <el-submenu v-else :index="resolvePath(item.path)" popper-append-to-body>
             <template slot="title">
-                <span> {{item.name}} </span>
+                <i class="item-icon" :class="item.meta.icon"></i>
+                <span class="item-title"> {{item.name}} </span>
             </template>
 
             <sidebar-item
@@ -100,18 +102,33 @@
                 if (isExternal(routePath)) {
                     return routePath
                 }
-                if (isExternal(this.basePath)) {
-                    return this.basePath
+                if (isExternal(t.basePath)) {
+                    return t.basePath
                 }
-                return path.resolve(t.basePath, routePath)
+
+                let routeLink = path.resolve(t.basePath,routePath)
+
+                return routeLink
             },
             onClickAAA(link){
-                console.log(link)
+                // console.log(link)
+            },
+            routeLink(path){
+                return '/admin' + this.resolvePath(path)
             }
         }
     }
 </script>
 
 <style lang="less" scoped>
+    .sidebar-item{
+        .item-icon{
+            width:1.6em;
+            font-size:16px;
+            color: #bfcbd9;
+            vertical-align: -0.05em;
+            /*fill: currentColor;*/
+        }
+    }
 
 </style>

@@ -5,11 +5,10 @@
                     mode="vertical"
                     :default-active="activeMenu"
                     background-color="#304156"
-                    text-color="#fff"
+                    text-color="#bfcbd9"
                     active-text-color="#1890ff"
             >
-            <SidebarItem v-for="route in adminRouter" :key="route.path" :item="route" :base-path="route.path" />
-
+            <SidebarItem v-for="route in dataJson" :key="route.path" :item="route" :base-path="route.path" />
             </el-menu>
         </el-scrollbar>
     </div>
@@ -41,7 +40,9 @@
         mounted(){
             // this.dataJson.push(this.adminRouter[0])
 
-            this.dataJson = this.adminRouter[0].children
+            this.dataJson = this.adminRouter[0].children;
+
+            // console.log(this.dataJson[0].hidden)
 
 
         },
