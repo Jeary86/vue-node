@@ -15,24 +15,24 @@ const admin = [
                 meta: { title: '首页',icon:'el-icon-s-home'},
             },
             {
-                path: 'case',
+                path: 'works',
                 component: AppMain,
-                redirect: 'case-list',
+                redirect: 'works-list',
                 name: '案例管理',
                 meta: {
-                    title: '项目管理',icon:'el-icon-picture'
+                    title: '作品管理',icon:'el-icon-picture'
                 },
                 children: [
                     {
-                        path: 'case-list',
+                        path: 'works-list',
                         name: '案例列表',
-                        component: () => import('../admin/components/case/CaseList'),
+                        component: () => import('../admin/components/works/WorksList'),
                         meta: { title: '案例列表' }
                     },
                     {
-                        path: 'add-case',
+                        path: 'add-works',
                         name: '新建案例',
-                        component: () => import('../admin/components/case/AddCase'),
+                        component: () => import('../admin/components/works/AddWorks'),
                         meta: { title: '新建案例' },
 
                     },

@@ -29,7 +29,6 @@ const register = async function (req, res) {
 
 const delUser = async function (req, res) {
     let params = req.body.user_id | '';
-
     let result = await DelUser(params);
     if (result === 1) return resErr(res);
     return resSuc(res, '删除成功');

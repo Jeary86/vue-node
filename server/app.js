@@ -41,9 +41,9 @@ app.all('*', setHead); //设置白名单,等一些请求头
 
 app.use('/api/', users(router));
 
-const upload = require('./routes/upload.js');
-
-app.use('/api/',upload(router));
+// const upload = require('./routes/upload.js');
+//
+// app.use('/api/',upload(router));
 
 
 // catch 404 and forward to error handler

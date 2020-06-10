@@ -6,11 +6,17 @@
                 <el-input v-model="postForm.title"></el-input>
             </el-form-item>
 
+            <el-form-item prop="displayTime" label="Publish Time:" class="postInfo-container-item">
+                <el-date-picker v-model="postForm.displayTime" type="date" value-format="yyyy-MM-dd" placeholder="Select date" />
+            </el-form-item>
+
             <el-form-item prop="content" style="margin-bottom: 30px;">
                 <Tinymce ref="editor" v-model="postForm.content" :height="400" />
-                <!--<div class="tinymce-container" >-->
-                    <!--<textarea v-model="postForm.content" id="tinydemo" class="tinymce-textarea" style="height: 300px;width:100%" />-->
-                <!--</div>-->
+            </el-form-item>
+
+
+            <el-form-item prop="image_uri" style="margin-bottom: 30px;">
+                <Upload v-model="postForm.image_uri" />
             </el-form-item>
 
             <div class="button-box">
@@ -24,13 +30,15 @@
 </template>
 
 <script>
+    import Server from "@/util/Server";
     import Tinymce from "../Tinymce/index";
     import load from '../Tinymce/dynamicLoadScript'
+    import Upload from "../Upload/SingleImage";
     const tinymceCDN = 'https://cdn.jsdelivr.net/npm/tinymce-all-in-one@4.9.3/tinymce.min.js'
 
     export default {
-        name: "AddCase",
-        components: {Tinymce},
+        name: "AddWorks",
+        components: {Upload, Tinymce},
         data(){
             const validateRequire = (rule, value, callback) => {
                 if (value === '') {
@@ -45,13 +53,20 @@
                 notifyPromise:Promise.resolve(),
                 postForm:{
                     title: '',
-                    content:''
+                    content:'',
+                    image_uri:'',
+                    displayTime:''
                 },
                 rules: {
                     title: [{ validator: validateRequire }],
                     content: [{ validator: validateRequire }],
+                    // image_uri: [{ validator: validateRequire }],
+                    displayTime:[{ validator: validateRequire }],
                 },
             }
+        },
+        computed: {
+
         },
         mounted() {
             // this.init()
@@ -82,13 +97,35 @@
                 });
             },
             submitForm(){
+
+                let t = this;
+
                 this.$refs.postForm.validate(valid => {
-                    if (valid) {
-                        // console.log(this.postForm.content)
-                    }else {
-                        // this.notify('error submit!!')
+
+                    let data = {
+                        w_title : t.postForm.title,
+                        w_content : t.postForm.content,
+                        w_img_url : t.postForm.image_uri,
+                        displayTime: t.postForm.displayTime,
                     }
-                    console.log(this.postForm.content)
+
+                    if (valid) {
+                        Server.callApi('/uploadWorks',data)
+                            .then(res =>{
+                                if (res.code == 0){
+                                    t.$message({
+                                        showClose: true,
+                                        message: '提交成功！',
+                                        type: 'success'
+                                    });
+                                    t.$router.push({ path:'/admin/works/works-list' });
+                                }else {
+                                    this.notify('error submit!!')
+                                }
+                            })
+                    }
+
+                    console.log(data)
                 })
             },
             notify(msg){

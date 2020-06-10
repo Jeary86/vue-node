@@ -1,30 +1,38 @@
 const multer = require("multer");
-const { resFun } = require('../common/response');
+var path = require('path');
 
-const Storage = multer.diskStorage({
-    destination: function (req, file, callback) {
-        callback(null, "./upload");
+let storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './server/public/uploads')
     },
-    filename: function (req, file, callback) {
-        callback(null, file.fieldname + "_" + Date.now() + "_" + file.originalname);
+    filename: function (req, file, cb) {
+        var singfileArray = file.originalname.split('.');
+        var fileExtension = singfileArray[singfileArray.length - 1];
+        cb(null, file.fieldname + '-' + Date.now() + "." + fileExtension);
+        console.log(file);
     }
-});
+})
 
-const upload = multer({ storage: Storage }).array("uploadImg", 3); //Field name and max count
+let uploader = multer({ storage: storage }).single("file");
 
 
 const uploadImg = async function (req, res) {
 
-    upload(req, res, function (err) {
+    uploader(req, res,()=> {
 
-        console.log(err)
+        if (req.file){
+            const basename = path.basename(req.file.path)
+            const originUrl = req.headers.host
 
+            const file_url = `${originUrl}/uploads/${basename}`
 
-        if (err) {
-            resFun(res,err)
+            res.send({file:file_url})
+        }else {
+            resEmp(res);
         }
-        return res.end("File uploaded sucessfully!.");
+
     });
+
 }
 
 module.exports = uploadImg

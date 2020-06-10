@@ -12,7 +12,7 @@
         :on-success="handleSuccess"
         :before-upload="beforeUpload"
         class="editor-slide-upload"
-        action="http://127.0.0.1:3000/api/upload"
+        action="http://127.0.0.1:3000/api/uploadImg"
         list-type="picture-card"
       >
         <el-button size="small" type="primary">

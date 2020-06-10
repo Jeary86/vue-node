@@ -33,11 +33,7 @@ const getUser = async function (req, res) {
 
 }
 
-const UserInfo = async function (req, res) {
-    const r = await userInfo(req.query);
-    if (r === 1) return resErr(res);
-    return resSuc(res,r);
-}
+
 
 const Login = async function (req, res) {
 
@@ -65,6 +61,12 @@ const Login = async function (req, res) {
 
     return resSuc(res, 'ok');
 
+}
+
+const UserInfo = async function (req, res) {
+    const r = await userInfo(req.query);
+    if (r === 1) return resErr(res);
+    return resSuc(res,r);
 }
 
 module.exports = {

@@ -4,7 +4,7 @@
                 :data="tableData"
                 style="width: 100%">
             <el-table-column
-                    prop="user_id"
+                    type="index"
                     label="id"
             >
             </el-table-column>
@@ -17,8 +17,14 @@
                     align="right"
             >
                 <template slot-scope="scope">
-                    <el-button type="primary" icon="el-icon-edit-outline" @click.native.prevent="onHanderReviseUser(scope.row.user_id)"></el-button>
-                    <el-button type="primary" icon="el-icon-delete" @click.native.prevent="onHanderDelUser(scope.row.user_id)"></el-button>
+                    <!--<el-button type="primary" icon="el-icon-edit-outline" ></el-button>-->
+                    <el-button type="primary" size="small" icon="el-icon-edit" @click.native.prevent="onHanderReviseUser(scope.row.user_id)">
+                        Edit
+                    </el-button>
+
+                    <el-button type="danger" size="small" icon="el-icon-delete" @click.native.prevent="onHanderDelUser(scope.row.user_id)">
+                        Delete
+                    </el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -77,7 +83,7 @@
         width:100%;
     }
     .el-button{
-        font-size:16px;
+        font-size:12px;
         padding:8px 18px;
     }
 </style>

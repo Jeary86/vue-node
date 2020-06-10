@@ -18,8 +18,6 @@ var upload = multer({ storage: storage })
 const routers = (router) => {
 
     router.post('/upload',upload.single("file"),(req,res)=>{
-        // var imageDir = 'http://127.0.0.1:3000/uploads';
-
 
         var filename = req.file.filename
 
