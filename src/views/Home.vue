@@ -6,9 +6,9 @@
         </div>
 
         <img alt="Vue logo" src="../assets/logo.png">
-        <div class="product" v-for="items in productList.data" :key="items.product_id">
-            <h1>名称:{{items.product_name}}</h1>
-            <h2>价格:{{items.product_price}}</h2>
+        <div class="product" v-for="items in productList" :key="items.product_id">
+            <h1>{{items.w_title}}</h1>
+            <div v-html="items.w_content"></div>
         </div>
     </div>
 </template>
@@ -30,11 +30,13 @@
         },
         methods :{
             getApiProduct(){
-                Server.getCallApi("/product")
+                Server.getCallApi("/worksList")
                     .then(res => {
 
                         if (res.data.code == 0){
-                            this.productList = res.data;
+                            this.productList = res.data.data.list;
+
+                            console.log(this.productList)
 
                         }else {
                             alert(res.data)

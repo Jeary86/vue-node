@@ -17,7 +17,7 @@ const users = require('./routes/index');
 
 
 app.use(session({
-    secret: 'test secret',
+    secret: 'secret',
     cokkie: { maxAge: 60 * 1000 * 300 } //过期时间 ms
 }))
 

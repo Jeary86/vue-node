@@ -16,7 +16,7 @@
                     <br/>
                     <el-button type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="setHandleCookie">设置session</el-button>
                     <br/>
-                    <el-button type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="getHandleCookie">获取session</el-button>
+                    <el-button type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="userInfoComplete">获取session</el-button>
                     <br/>
                     <el-button type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="clearHandleCookie">清除session</el-button>
                 </div>
@@ -45,7 +45,7 @@
         },
         mounted(){
 
-            this.getHandleCookie();
+            this.userInfoComplete();
 
         },
         methods:{
@@ -90,9 +90,9 @@
                         });
                     })
             },
-            getHandleCookie(){
+            userInfoComplete(){
                 let t = this;
-                Server.getCallApi('/getUser')
+                Server.getCallApi('/userInfo')
                     .then(res =>{
 
                         let r = res.data;

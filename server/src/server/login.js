@@ -1,6 +1,6 @@
 const query = require('../../db/connect');
 
-const userLogin = async function (params) {
+const Login = async function (params) {
     try {
         const r = await query(
             'SELECT * FROM user where user_name = ? and user_password = ?', [params.user_name, params.user_password]
@@ -12,7 +12,7 @@ const userLogin = async function (params) {
     }
 }
 
-const userInfo = async function (params) {
+const UserList = async function (params) {
     try {
         const r = await query(
             'SELECT * FROM user'
@@ -25,6 +25,6 @@ const userInfo = async function (params) {
 }
 
 module.exports = {
-    userLogin,
-    userInfo
+    Login,
+    UserList
 };

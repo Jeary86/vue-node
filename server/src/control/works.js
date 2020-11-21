@@ -1,5 +1,6 @@
-const { resSuc,resErr,resFun } = require('../common/response');
-const { UploadWorks , WorksList} = require('../server/works');
+const { resSuc,resErr,resFun ,resEmp} = require('../common/response');
+const { UploadWorks , WorksList , WorksDetails, WorksDetailsSave , DelWorks} = require('../server/works');
+const isEmpty = require('../common/isEmpty');
 
 const uploadWorks = async function (req, res) {
     const params = {
@@ -19,8 +20,8 @@ const uploadWorks = async function (req, res) {
 const worksList = async function (req, res) {
 
     const params = {
-        page : req.query.page,
-        limit : req.query.limit,
+        page : req.query.page | 1,
+        limit : req.query.limit | 20
     }
 
     if (!/^[0-9]*$/.test(params.limit) || !/^[0-9]*$/.test(params.page)) {
@@ -40,7 +41,46 @@ const worksList = async function (req, res) {
     return resSuc(res,data);
 }
 
+const worksDetailsSave = async function (req, res) {
+    let params = {
+        id : req.body.id | '',
+        w_title : '',
+        w_content : '',
+        w_img_url : '',
+        displayTime : ''
+    };
+
+    Object.assign(params, req.body);
+
+    const isempty = isEmpty(params);
+
+    if (isempty) {
+        return resEmp(res);
+    }
+
+    let result = await WorksDetailsSave(params);
+    if (result === 1) return resErr(res);
+    return resSuc(res, '修改成功');
+}
+
+const worksDetails = async function (req, res) {
+    let params = req.query.id | '';
+    let result = await WorksDetails(params);
+    if (result === 1) return resErr(res);
+    return resSuc(res, result);
+}
+
+const delWorks = async function (req, res) {
+    let params = req.body.id | '';
+    let result = await DelWorks(params);
+    if (result === 1) return resErr(res);
+    return resSuc(res, '删除成功');
+}
+
 module.exports = {
     uploadWorks,
-    worksList
+    worksList,
+    delWorks,
+    worksDetails,
+    worksDetailsSave
 }

@@ -17,7 +17,7 @@ const admin = [
             {
                 path: 'works',
                 component: AppMain,
-                redirect: 'works-list',
+                redirect: '/admin/works/works-list',
                 name: '案例管理',
                 meta: {
                     title: '作品管理',icon:'el-icon-picture'
@@ -25,17 +25,23 @@ const admin = [
                 children: [
                     {
                         path: 'works-list',
-                        name: '案例列表',
+                        name: 'WorksList',
                         component: () => import('../admin/components/works/WorksList'),
                         meta: { title: '案例列表' }
                     },
                     {
                         path: 'add-works',
-                        name: '新建案例',
+                        name: 'AddWorks',
                         component: () => import('../admin/components/works/AddWorks'),
                         meta: { title: '新建案例' },
-
                     },
+                    {
+                        path: 'edit-works/:id(\\d+)',
+                        name: 'EditWorks',
+                        component: () => import('../admin/components/works/EditWorks'),
+                        meta: { title: '编辑案例',noCache: true, activeMenu: '/admin/works/works-list'},
+                        hidden: true
+                    }
 
                 ]
             },

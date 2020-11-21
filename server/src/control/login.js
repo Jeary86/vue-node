@@ -1,4 +1,4 @@
-const { userLogin ,userInfo} = require('../server/login');
+const { Login ,UserList} = require('../server/login');
 const isEmpty = require('../common/isEmpty');
 const { resEmp, resFun, resErr, resSuc } = require('../common/response');
 const myCrypto = require('../common/crypto');
@@ -35,7 +35,7 @@ const getUser = async function (req, res) {
 
 
 
-const Login = async function (req, res) {
+const login = async function (req, res) {
 
     let params = {
         user_name: '',
@@ -52,19 +52,26 @@ const Login = async function (req, res) {
 
     params.user_password = myCrypto(params.user_password);
 
-    const r = await userLogin(params);
+    const r = await Login(params);
 
     if (r === 1) return resErr(res);
     if (!r[0]) return resFun(res, 10003, '用户名或密码错误');
 
     req.session.userInfo = params;
+    // req.session.isLogin = true;
 
     return resSuc(res, 'ok');
 
 }
 
-const UserInfo = async function (req, res) {
-    const r = await userInfo(req.query);
+const userInfo = async function (req, res) {
+    let userInfo = req.session.userInfo;
+    if (!userInfo) return resFun(res,1);
+    resSuc(res, userInfo);
+}
+
+const userList = async function (req, res) {
+    const r = await UserList(req.query);
     if (r === 1) return resErr(res);
     return resSuc(res,r);
 }
@@ -73,6 +80,7 @@ module.exports = {
     clearUser,
     setUser,
     getUser,
-    UserInfo,
-    Login
+    login,
+    userList,
+    userInfo
 };

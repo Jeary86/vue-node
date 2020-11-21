@@ -19,19 +19,19 @@
                 </template>
             </el-table-column>
 
-            <el-table-column min-width="300px" label="Content">
+            <el-table-column min-width="300px" label="Title">
                 <template slot-scope="{row}">
-                    <span class="type-content">{{ row.w_content }}</span>
+                    <div class="type-content" v-html="row.w_title"></div>
                 </template>
             </el-table-column>
 
             <el-table-column align="center" label="Actions" width="300px">
                 <template slot-scope="scope">
-                    <el-button type="primary" size="small" icon="el-icon-edit">
+                    <el-button type="primary" size="small" icon="el-icon-edit" @click.native.prevent="onHanderEditWorks(scope.row.id)">
                         Edit
                     </el-button>
 
-                    <el-button type="danger" size="small" icon="el-icon-delete">
+                    <el-button type="danger" size="small" icon="el-icon-delete" @click.native.prevent="onHanderDelWorks(scope.row.id)">
                         Delete
                     </el-button>
                 </template>
@@ -72,6 +72,26 @@
                             this.listLoading = false
                         }
                     })
+            },
+            onHanderDelWorks(id){
+                console.log(id)
+
+                Server.callApi('/delWorks',{id:id})
+                    .then(res =>{
+
+                        if (res.code == 0){
+                            this.$message({
+                                showClose: true,
+                                message: res.data,
+                                type: 'success'
+                            });
+                            console.log(res)
+                            this.worksListComplete();
+                        }
+                    })
+            },
+            onHanderEditWorks(id){
+                this.$router.push({ path:'/admin/works/edit-works/'+id})
             }
         }
     }

@@ -30,17 +30,13 @@
         },
         mounted(){
             this.userInfoComplete();
-
-            // console.log(this.$route)
         },
         methods:{
             userInfoComplete(){
-                Server.getCallApi('/getUser')
+                Server.getCallApi('/userInfo')
                     .then(res =>{
                         if (res.data.code == 0){
-
                             this.userName = res.data.data.user_name
-
                         }else {
                             this.$router.push({ path:'/login' })
                         }

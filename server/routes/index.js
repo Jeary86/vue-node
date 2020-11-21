@@ -1,7 +1,6 @@
-const { Login , clearUser, getUser , setUser ,UserInfo} = require('../src/control/login');
-const Product = require('../src/control/product');
+const { login , clearUser, getUser , setUser ,userList ,userInfo} = require('../src/control/login');
 const {register , delUser ,updateUser} = require('../src/control/register');
-const {uploadWorks , worksList} = require('../src/control/works');
+const {uploadWorks , worksList , worksDetails , worksDetailsSave ,delWorks} = require('../src/control/works');
 const uploadImg = require('../src/control/uploadImg')
 
 const routers = (router) => {
@@ -11,10 +10,13 @@ const routers = (router) => {
         res.render('index', { title: 'Express' });
     });
     /** 登录 **/
-    router.post('/login', Login);
+    router.post('/login', login);
+
+    /** 登录验证 **/
+    router.get('/userInfo', userInfo);
 
     /** 用户列表 **/
-    router.get('/userInfo', UserInfo);
+    router.get('/userList', userList);
 
     /** 添加用户 **/
     router.post('/register', register);
@@ -32,14 +34,21 @@ const routers = (router) => {
     /** 作品列表 **/
     router.get('/worksList', worksList);
 
+    /** 作品详情页 **/
+    router.get('/worksDetails', worksDetails);
+
+    /** 修改详情页 **/
+    router.post('/worksDetailsSave', worksDetailsSave);
+
     /** 上传图片 **/
     router.post('/uploadImg', uploadImg);
 
     /** 上传作品 **/
     router.post('/uploadWorks', uploadWorks);
 
-    /** 接口测试 **/
-    router.get('/product', Product);
+    /** 删除作品 **/
+    router.post('/delWorks', delWorks);
+
 
     return router;
 }

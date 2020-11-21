@@ -47,7 +47,7 @@
         },
         methods:{
             userInfoComplete(){
-                Server.getCallApi('/userInfo')
+                Server.getCallApi('/userList')
                     .then(res =>{
                         if (res.data.code == 0){
                             this.tableData = res.data.data;
