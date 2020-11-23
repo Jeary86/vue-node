@@ -6,9 +6,12 @@
         </div>
 
         <img alt="Vue logo" src="../assets/logo.png">
-        <div class="product" v-for="items in productList" :key="items.product_id">
+        <div class="product" v-for="items in productList" :key="items.id">
             <h1>{{items.w_title}}</h1>
-            <div v-html="items.w_content"></div>
+            <!--<div v-html="items.w_content"></div>-->
+            <div class="w_img_url" @click="onClickWorks(items.id)">
+                <img :src="items.w_img_url" />
+            </div>
         </div>
     </div>
 </template>
@@ -42,6 +45,9 @@
                             alert(res.data)
                         }
                 })
+            },
+            onClickWorks(e){
+                this.$router.push({name:'HomeContent',params: {id:e}})
             }
         }
     }
@@ -56,6 +62,13 @@
             &.router-link-exact-active {
                 color: #42b983;
             }
+        }
+    }
+    .w_img_url{
+        width:50%;position:relative;margin:0 auto;
+        border: 5px solid #ccc;
+        img{
+            width:100%;
         }
     }
 </style>
