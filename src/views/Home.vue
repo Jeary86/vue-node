@@ -1,18 +1,22 @@
 <template>
     <div class="home">
-        <div id="nav">
-            <router-link to="/">前端</router-link> |
-            <router-link to="/admin">后端</router-link>
-        </div>
 
-        <img alt="Vue logo" src="../assets/logo.png">
-        <div class="product" v-for="items in productList" :key="items.id">
-            <h1>{{items.w_title}}</h1>
-            <!--<div v-html="items.w_content"></div>-->
-            <div class="w_img_url" @click="onClickWorks(items.id)">
-                <img :src="items.w_img_url" />
+        <Navber>
+            <Jeary />
+        </Navber>
+
+        <div class="product">
+            <div class="product_list" v-for="items in productList" :key="items.id">
+                <li>
+                    <h3 class="view-text">{{items.w_title}}</h3>
+                    <div class="w_img_url" @click="onClickWorks(items)">
+                        <img :src="items.w_img_url" />
+                    </div>
+                </li>
+
             </div>
         </div>
+        
     </div>
 </template>
 
@@ -20,9 +24,12 @@
     // @ is an alias to /src
 
     import Server from "../util/Server";
+    import Navber from "./Navber";
+    import Jeary from "./Jeary";
 
     export default {
         name: 'Home',
+        components: {Jeary, Navber},
         data(){
             return{
                 productList : []
@@ -47,28 +54,41 @@
                 })
             },
             onClickWorks(e){
-                this.$router.push({name:'HomeContent',params: {id:e}})
+
+                if (e.w_link != null){
+                    console.log(e.w_link)
+                    window.location.href  = e.w_link
+                }else {
+                    this.$router.push({name:'HomeContent',params: {id:e.id}})
+                }
+
+
             }
         }
     }
 </script>
 <style lang="less" scoped>
-    #nav {
-        padding: 30px;
-        a {
-            font-weight: bold;
-            color: #2c3e50;
 
-            &.router-link-exact-active {
-                color: #42b983;
+    .product{
+        width:95%;position:relative;margin:0 auto;text-align: left;
+        max-width:1280px;
+
+        .view-text{
+            width: 100%;display: inline-block;white-space: nowrap;overflow: hidden;text-overflow:ellipsis;
+        }
+
+        .product_list{
+            width:50%;position:relative;display:inline-block;
+            li{
+                width:100%;position:relative;text-align: center;
+                .w_img_url{
+                    width:80%;position:relative;border: 5px solid #000;margin:0 auto;
+                    img{
+                        width:100%;display: block;
+                    }
+                }
             }
         }
     }
-    .w_img_url{
-        width:50%;position:relative;margin:0 auto;
-        border: 5px solid #ccc;
-        img{
-            width:100%;
-        }
-    }
+
 </style>

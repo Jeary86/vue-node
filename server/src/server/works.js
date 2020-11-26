@@ -41,10 +41,10 @@ const WorksDetails = async function (params) {
     }
 }
 
-const WorksDetailsSave = async function ({id,w_title,w_content,w_img_url,displayTime}) {
+const WorksDetailsSave = async function ({id,w_title,w_link,w_content,w_img_url,displayTime}) {
     try {
         const r = await query(
-            'UPDATE works SET w_title = ? ,w_content = ? ,w_img_url = ? ,displayTime = ? WHERE id = ?',[w_title,w_content,w_img_url,displayTime,id]
+            'UPDATE works SET w_title = ? ,w_link = ? ,w_content = ? ,w_img_url = ? ,displayTime = ? WHERE id = ?',[w_title,w_link,w_content,w_img_url,displayTime,id]
         );
         return r;
     } catch (e) {

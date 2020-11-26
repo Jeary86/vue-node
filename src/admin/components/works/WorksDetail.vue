@@ -10,6 +10,10 @@
                 <el-date-picker v-model="postForm.displayTime" type="date" value-format="yyyy-MM-dd" placeholder="Select date" />
             </el-form-item>
 
+            <el-form-item label="Link :" prop="title">
+                <el-input v-model="postForm.link"></el-input>
+            </el-form-item>
+
             <el-form-item prop="content" style="margin-bottom: 30px;">
                 <Tinymce ref="editor" v-model="postForm.content" :height="400" />
             </el-form-item>
@@ -64,13 +68,14 @@
                 notifyPromise:Promise.resolve(),
                 postForm:{
                     title: '',
+                    link : '',
                     content:'',
                     image_url:'',
                     displayTime:''
                 },
                 rules: {
                     title: [{ validator: validateRequire }],
-                    content: [{ validator: validateRequire }],
+                    // content: [{ validator: validateRequire }],
                     displayTime:[{ validator: validateRequire ,trigger: 'blur' }],
                     image_url: [{ validator: validateRequire, trigger: 'blur' }]
                 },
@@ -102,6 +107,7 @@
                         if (res.data.code == 0) {
                             this.postForm = {
                                 title: res.data.data[0].w_title,
+                                link: res.data.data[0].w_link,
                                 content: res.data.data[0].w_content,
                                 image_url:res.data.data[0].w_img_url,
                                 displayTime:res.data.data[0].displayTime
@@ -139,6 +145,7 @@
 
                     let data = {
                         w_title : t.postForm.title,
+                        w_link : t.postForm.link,
                         w_content : t.postForm.content,
                         w_img_url : t.postForm.image_url,
                         displayTime: t.postForm.displayTime,
@@ -168,6 +175,7 @@
                     let data = {
                         id : t.userId,
                         w_title : t.postForm.title,
+                        w_link : t.postForm.link,
                         w_content : t.postForm.content,
                         w_img_url : t.postForm.image_url,
                         displayTime: t.postForm.displayTime,
@@ -175,6 +183,9 @@
                     if (valid) {
                         Server.callApi('/worksDetailsSave',data)
                             .then(res =>{
+
+                                console.log(data)
+
                                 if (res.code == 0){
                                     t.$message({
                                         showClose: true,

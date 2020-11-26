@@ -5,6 +5,7 @@ const isEmpty = require('../common/isEmpty');
 const uploadWorks = async function (req, res) {
     const params = {
         w_title : '',
+        w_link : '',
         w_content : '',
         w_img_url : '',
         displayTime: '',
@@ -45,6 +46,7 @@ const worksDetailsSave = async function (req, res) {
     let params = {
         id : req.body.id | '',
         w_title : '',
+        w_link : '',
         w_content : '',
         w_img_url : '',
         displayTime : ''
@@ -53,10 +55,10 @@ const worksDetailsSave = async function (req, res) {
     Object.assign(params, req.body);
 
     const isempty = isEmpty(params);
-
-    if (isempty) {
-        return resEmp(res);
-    }
+    // 判断修改 不能为空
+    // if (isempty) {
+    //     return resEmp(res);
+    // }
 
     let result = await WorksDetailsSave(params);
     if (result === 1) return resErr(res);
