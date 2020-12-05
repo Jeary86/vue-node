@@ -55,7 +55,7 @@
             },
             onClickWorks(e){
 
-                if (e.w_link != null){
+                if (e.w_link != null && e.w_link != ""){
                     console.log(e.w_link)
                     window.location.href  = e.w_link
                 }else {
