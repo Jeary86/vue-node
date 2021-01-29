@@ -1,6 +1,8 @@
 const { login , clearUser, getUser , setUser ,userList ,userInfo} = require('../src/control/login');
 const {register , delUser ,updateUser} = require('../src/control/register');
 const {uploadWorks , worksList , worksDetails , worksDetailsSave ,delWorks} = require('../src/control/works');
+const {wxLogin} = require('../src/control/wx-api');
+
 const uploadImg = require('../src/control/uploadImg')
 
 const routers = (router) => {
@@ -49,6 +51,8 @@ const routers = (router) => {
     /** 删除作品 **/
     router.post('/delWorks', delWorks);
 
+    /** 微信授权登录 **/
+    router.get('/wxLogin', wxLogin)
 
     return router;
 }

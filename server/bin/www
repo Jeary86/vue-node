@@ -8,6 +8,8 @@ var app = require('../app');
 var debug = require('debug')('nodedemo:server');
 var http = require('http');
 
+const config = require('../db/config');
+
 /**
  * Get port from environment and store in Express.
  */
@@ -26,9 +28,9 @@ var server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
-var hostname = '127.0.0.1';
+// var hostname = '';
 
-server.listen(port,hostname);
+server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
@@ -91,5 +93,16 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 
-  console.log(`Server running at http://${hostname}:${addr.port}/api/`);
+    if (process.env.NODE_ENV === 'development'){
+
+        console.log(`Server running at http://${config.debug.host}:${addr.port}/api/`);
+
+    }else {
+
+        console.log(`Server running at http://${config.release.host}:${addr.port}/api/`);
+
+    }
+
+
+
 }

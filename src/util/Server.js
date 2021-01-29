@@ -1,7 +1,7 @@
 // import Vue from 'vue'
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://localhost:3000/api/';
+// axios.defaults.baseURL = 'http://localhost:3000/api';
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 // Vue.prototype.$http = axios;
 
@@ -14,7 +14,8 @@ export default class Server {
 
         const result = await axios(
             {
-                url: apiName,
+                url: process.env.VUE_APP_SERVER_URL + apiName,
+                // url : apiName,
                 data: data,
                 method: 'post',
                 responseType : 'json',
@@ -35,7 +36,8 @@ export default class Server {
 
     static async getCallApi (apiName,data) {
         const result = await axios({
-                url: apiName,
+                url: process.env.VUE_APP_SERVER_URL + apiName,
+                // url : apiName,
                 method: 'get',
                 responseType : 'json',
                 params : data,

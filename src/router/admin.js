@@ -20,7 +20,7 @@ const admin = [
                 redirect: '/admin/works/works-list',
                 name: '案例管理',
                 meta: {
-                    title: '作品管理',icon:'el-icon-picture'
+                    title: '案例管理',icon:'el-icon-picture'
                 },
                 children: [
                     {
@@ -33,7 +33,7 @@ const admin = [
                         path: 'add-works',
                         name: 'AddWorks',
                         component: () => import('../admin/components/works/AddWorks'),
-                        meta: { title: '新建案例' },
+                        meta: { title: '新建案例' ,breadcrumb : true},
                     },
                     {
                         path: 'edit-works/:id(\\d+)',

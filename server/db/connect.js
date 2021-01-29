@@ -3,18 +3,32 @@ const cfg = require('./config');
 /**
  * 创建连接池
  */
+
+let sql
+
+if (process.env.NODE_ENV === 'development'){
+
+    sql = cfg.debug
+
+}else {
+
+    sql = cfg.release
+
+}
+
+
 const options = {
-    host: cfg.host,
-    user: cfg.user,
-    password: cfg.password,
-    port: cfg.port,
-    database: cfg.database // 开启自动生成数据库，请把这句注释
+    host: sql.host,
+    user: sql.user,
+    password: sql.password,
+    port: sql.port,
+    database: sql.database // 开启自动生成数据库，请把这句注释
 }
 
 let pool = mysql.createPool(options);
 
 if (pool) {
-    console.log('数据库连接成功');
+    console.log('数据库连接成功 IP：' + sql.host + "  配置环境：" + process.env.NODE_ENV);
 } else {
     console.log('数据库连接失败，请重试');
 }

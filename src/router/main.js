@@ -1,5 +1,6 @@
 import Home from '../views/Home.vue'
 import HomeContent from '../views/HomeContent'
+import Test from  '../views/Test'
 const main = [
     {
         path: '/',
@@ -10,6 +11,11 @@ const main = [
         path: '/HomeContent/:id',
         name: 'HomeContent',
         component: HomeContent
+    },
+    {
+        path: '/test',
+        name: 'Test',
+        component: Test
     },
 ]
 

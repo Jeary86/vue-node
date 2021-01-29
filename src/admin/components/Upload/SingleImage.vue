@@ -7,7 +7,7 @@
                 :on-success="handleImageSuccess"
                 class="image-uploader"
                 drag
-                action="http://127.0.0.1:3000/api/uploadImg"
+                :action="uploadImg"
         >
             <i class="el-icon-upload" />
             <div class="el-upload__text">
@@ -37,6 +37,7 @@
         data() {
             return {
                 tempUrl: '',
+                uploadImg : process.env.VUE_APP_SERVER_URL + '/uploadImg',
                 dataObj: { token: '', key: '' }
             }
         },
@@ -53,7 +54,7 @@
                 this.$emit('input', val)
             },
             handleImageSuccess(file) {
-                this.emitInput('http://' + file.file)
+                this.emitInput(file.file)
             },
             beforeUpload() {
 

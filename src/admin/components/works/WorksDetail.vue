@@ -42,9 +42,7 @@
 <script>
     import Server from "@/util/Server";
     import Tinymce from "../Tinymce/index";
-    import load from '../Tinymce/dynamicLoadScript'
     import Upload from "../Upload/SingleImage";
-    const tinymceCDN = 'https://cdn.jsdelivr.net/npm/tinymce-all-in-one@4.9.3/tinymce.min.js'
     export default {
         name: "WorksDetail",
         components: {Upload, Tinymce},
@@ -87,7 +85,7 @@
 
         },
         mounted() {
-            this.init()
+
         },
         activated() {
 
@@ -117,25 +115,6 @@
                             alert(res.data)
                         }
                     })
-            },
-            init() {
-                load(tinymceCDN, (err) => {
-                    if (err) {
-                        this.$message.error(err.message)
-                        return
-                    }
-                    this.initTinymce();
-                })
-            },
-            initTinymce(){
-                window.tinymce.init({
-                    selector: '#tinydemo',
-                    language:'zh_CN',
-                    plugins: 'image',
-                    toolbar: 'image',
-                    images_upload_url: 'http://127.0.0.1:3000/api/upload',
-                    images_upload_base_path: 'http://',
-                });
             },
             submitForm(){
 

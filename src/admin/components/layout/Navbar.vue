@@ -38,7 +38,7 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex'
+    // import { mapGetters } from 'vuex'
     import Server from "@/util/Server";
     import * as pathToRegexp from 'path-to-regexp'
     export default {
@@ -50,7 +50,7 @@
             }
         },
         computed: {
-            ...mapGetters(['adminRouter'])
+            // ...mapGetters(['adminRouter'])
         },
         data(){
             return{
@@ -70,6 +70,9 @@
             getBreadcrumb() {
 
                 let matched = this.$route.matched.filter(item => item.meta && item.meta.title)
+
+                console.log(matched,"1111")
+
                 const first = matched[0]
 
                 if (!this.isDashboard(first)) {
@@ -94,7 +97,7 @@
             handleLink(item) {
                 let t = this;
                 const { redirect, path} = item
-                // console.log(redirect)
+
                 if (redirect) {
                     t.$router.push(redirect)
                     return

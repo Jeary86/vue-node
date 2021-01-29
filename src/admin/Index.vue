@@ -33,8 +33,12 @@
         },
         methods:{
             userInfoComplete(){
+
                 Server.getCallApi('/userInfo')
                     .then(res =>{
+
+                        // console.log(res)
+
                         if (res.data.code == 0){
                             this.userName = res.data.data.user_name
                         }else {
