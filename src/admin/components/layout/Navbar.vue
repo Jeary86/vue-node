@@ -38,7 +38,7 @@
 </template>
 
 <script>
-    // import { mapGetters } from 'vuex'
+    import { mapGetters } from 'vuex'
     import Server from "@/util/Server";
     import * as pathToRegexp from 'path-to-regexp'
     export default {
@@ -50,7 +50,7 @@
             }
         },
         computed: {
-            // ...mapGetters(['adminRouter'])
+            ...mapGetters(['sidebar'])
         },
         data(){
             return{
@@ -71,7 +71,7 @@
 
                 let matched = this.$route.matched.filter(item => item.meta && item.meta.title)
 
-                console.log(matched,"1111")
+                // console.log(matched,"1111")
 
                 const first = matched[0]
 
@@ -108,6 +108,8 @@
 
             toggleClick() {
                 this.isActive = !this.isActive
+
+                this.$store.dispatch('setSidebar',this.isActive)
             },
             clearHandleLogin(){
                 Server.getCallApi('/clearUser')

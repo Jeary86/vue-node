@@ -12,6 +12,11 @@
                     prop="user_name"
                     label="账号">
             </el-table-column>
+            <el-table-column label="权限">
+                <template slot-scope="scope">
+                    {{scope.row.user_role ? '管理员':'用户'}}
+                </template>
+            </el-table-column>
             <el-table-column
                     label="操作"
                     align="right"

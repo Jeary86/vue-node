@@ -163,8 +163,7 @@
                         Server.callApi('/worksDetailsSave',data)
                             .then(res =>{
 
-                                console.log(data)
-
+                                // console.log(data)
                                 if (res.code == 0){
                                     t.$message({
                                         showClose: true,

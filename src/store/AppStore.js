@@ -2,7 +2,9 @@ import Admin from '../router/admin'
 export default {
     state: {
         loaderName: "loading",
-        adminRouter : Admin
+        adminRouter : Admin,
+        sidebar : true,
+        userInfo : {}
     },
     mutations: {
         SET_LOADER_NAME: (state, payload) => {
@@ -10,6 +12,12 @@ export default {
         },
         SET_ADMIN_ROUTER: (state, payload) => {
             state.adminRouter = payload
+        },
+        SET_SIDEVAR: (state, payload) => {
+            state.sidebar = payload
+        },
+        SET_USER_INFO: (state, payload) => {
+            state.userInfo = payload
         }
     },
     actions: {
@@ -18,10 +26,18 @@ export default {
         },
         setAdminRouter: ({commit, state}, payload) => {
             return commit('SET_ADMIN_ROUTER', payload)
+        },
+        setSidebar: ({commit, state}, payload) => {
+            return commit('SET_SIDEVAR', payload)
+        },
+        setUserInfo: ({commit, state}, payload) => {
+            return commit('SET_USER_INFO', payload)
         }
     },
     getters: {
         loaderName: state => state.loaderName,
-        adminRouter: state => state.adminRouter
+        adminRouter: state => state.adminRouter,
+        sidebar:state => state.sidebar,
+        userInfo:state => state.userInfo
     }
 }

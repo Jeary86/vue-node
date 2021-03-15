@@ -53,7 +53,29 @@ const updateUser = async function (req, res) {
 
     let result = await UpdateUser(params);
     if (result === 1) return resErr(res);
-    return resSuc(res, '修改成功');
+
+    // res.json({
+    //     code: 1,
+    //     mgs: req.session.userInfo[0].user_id,
+    //     aaa: parseInt(params.user_id)
+    // })
+
+    if (req.session.userInfo[0].user_id != parseInt(params.user_id)) {
+
+        res.json({
+            code: 0,
+            mgs: 'ok'
+        })
+
+    }else {
+        req.session.destroy();
+        res.json({
+            code: 1,
+            mgs: 'ok'
+        })
+    }
+
+
 }
 
 module.exports = {

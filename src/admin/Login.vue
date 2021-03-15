@@ -14,8 +14,6 @@
                     <el-button :loading="loading" style="width:100%" type="primary" @click.native.prevent="handleLogin">Login</el-button>
                     <br/>
                     <br/>
-                    <el-button type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="setHandleCookie">设置session</el-button>
-                    <br/>
                     <el-button type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="userInfoComplete">获取session</el-button>
                     <br/>
                     <el-button type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="clearHandleCookie">清除session</el-button>
@@ -60,6 +58,8 @@
 
                 Server.callApi('/login',data)
                     .then(res =>{
+
+                        console.log(res)
 
                         if (res.code == 0){
                             t.$message({
@@ -121,14 +121,6 @@
                             type: 'error'
                         });
                     })
-            },
-            handleRegister(){
-                // this.$message({
-                //     showClose: true,
-                //     message: '恭喜你，这是一条成功消息',
-                //     type: 'success'
-                // });
-                this.isShow = !this.isShow;
             }
         }
     }

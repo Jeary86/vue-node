@@ -57,7 +57,7 @@ const login = async function (req, res) {
     if (r === 1) return resErr(res);
     if (!r[0]) return resFun(res, 10003, '用户名或密码错误');
 
-    req.session.userInfo = params;
+    req.session.userInfo = r;
     // req.session.isLogin = true;
 
     return resSuc(res, 'ok');

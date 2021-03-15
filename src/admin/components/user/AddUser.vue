@@ -42,7 +42,7 @@
                                 message: res.data,
                                 type: 'success'
                             });
-                            t.$router.push({ path:'/admin/userList' });
+                            t.$router.push({ path:'/admin/user/userList' });
                         }else {
                             t.$message({
                                 showClose: true,

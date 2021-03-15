@@ -37,23 +37,25 @@
                     user_password: this.loginForm.password
                 }
 
+                // console.log(data)
+
                 Server.callApi('/updateUser',data)
                     .then(res =>{
-                        console.log(res)
-
+                      // console.log(res)
                         if (res.code == 0){
                             this.$message({
                                 showClose: true,
-                                message: res.data,
+                                message: res.msg,
                                 type: 'success'
                             });
                             this.$router.go(-1);
                         }else {
                             this.$message({
                                 showClose: true,
-                                message: res.data,
+                                message: res.msg,
                                 type: 'error'
                             });
+                            this.$router.push({ path:'/login' })
                         }
                     })
             }

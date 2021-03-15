@@ -66,9 +66,11 @@
             worksListComplete(){
                 Server.getCallApi('/worksList',this.listQuery)
                     .then(res =>{
+
+                      console.log(res)
                         if (res.data.code == 0){
-                            this.worksList = res.data.data.list;
-                            this.total = res.data.data.total;
+                            this.worksList = res.data.data.rows;
+                            this.total = res.data.data.count;
                             this.listLoading = false
                         }
                     })

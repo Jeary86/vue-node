@@ -53,27 +53,37 @@ const admin = [
                 meta: {
                     title: '用户管理',icon:'el-icon-user-solid'
                 },
+                role:1,
                 children :[
                     {
                         path: 'userList',
                         name: 'UserList',
                         component: () => import('../admin/components/user/UserList'),
-                        meta: { title: '用户列表'},
+                        meta: { title: '用户列表'}
                     },
                     {
                         path: 'add-user',
                         name: 'AddUser',
                         component: () => import('../admin/components/user/AddUser'),
-                        meta: { title: '添加用户'},
+                        meta: { title: '添加用户'}
                     },
                     {
                         path: 'userRevise/:id(\\d+)',
                         name: 'UserRevise',
                         component: () => import('../admin/components/user/UserRevise'),
-                        meta: { title: '修改', noCache: true, activeMenu: '/admin/user/userList'},
+                        meta: { title: '修改密码', noCache: true, activeMenu: '/admin/user/userList',icon:'el-icon-user-solid'},
                         hidden: true
                     }
                 ]
+            },
+            {
+                path: 'userRevise/:id(\\d+)',
+                name: '修改密码',
+                role:0,
+                component: () => import('../admin/components/user/UserRevise'),
+                meta: {
+                    title: '修改密码',icon:'el-icon-user-solid'
+                },
             },
 
         ]

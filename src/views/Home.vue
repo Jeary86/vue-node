@@ -44,8 +44,7 @@
                 Server.getCallApi("/worksList")
                     .then(res => {
                         if (res.data.code == 0){
-                            this.productList = res.data.data.list;
-                            console.log(this.productList)
+                            this.productList = res.data.data.rows;
 
                         }else {
                             alert(res.data)

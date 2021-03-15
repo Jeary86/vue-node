@@ -1,24 +1,11 @@
 <template>
     <div class="sidebar-item" v-if="!item.hidden">
-        <!--<el-submenu v-for="(item,index) in item" :key="index" :index="item.path">-->
-
-            <!--<template slot="title">-->
-                <!--<span> {{item.name}}</span>-->
-            <!--</template>-->
-
-            <!--&lt;!&ndash;<el-menu-item v-for="(child,n) in item.children" :key="n" class="nest-menu" :index="child.path">&ndash;&gt;-->
-                <!--&lt;!&ndash;{{child.meta.title}}&ndash;&gt;-->
-            <!--&lt;!&ndash;</el-menu-item>&ndash;&gt;-->
-
-        <!--</el-submenu>-->
-
-
         <template v-if="hasOneShowingChild(item.children,item) && (!onlyOneChild.children||onlyOneChild.noShowingChildren)&&!item.alwaysShow">
 
-            <router-link :to="routeLink(onlyOneChild.path)">
+            <router-link v-if="onlyOneChild.meta" :to="routeLink(onlyOneChild.path)">
                 <el-menu-item :index="routeLink(onlyOneChild.path)">
-                    <i class="item-icon" :class="onlyOneChild.meta.icon"></i>
-                    <span class="item-title" @click="onClickAAA(routeLink(onlyOneChild.path))"> {{onlyOneChild.meta.title}} </span>
+                    <i class="svg-icon" :class="onlyOneChild.meta.icon"></i>
+                    <span class="item-title" slot='title'> {{onlyOneChild.meta.title}} </span>
                 </el-menu-item>
             </router-link>
 
@@ -26,7 +13,7 @@
 
         <el-submenu v-else :index="resolvePath(item.path)" popper-append-to-body>
             <template slot="title">
-                <i class="item-icon" :class="item.meta.icon"></i>
+                <i class="svg-icon" :class="item.meta.icon"></i>
                 <span class="item-title"> {{item.name}} </span>
             </template>
 
@@ -45,6 +32,7 @@
 
 <script>
     import path from 'path'
+    import { mapGetters } from 'vuex';
     import { isExternal } from '@/util/validate'
     export default {
         name: "SidebarItem",
@@ -68,6 +56,9 @@
             return {
                 onlyOneChild : null
             }
+        },
+        computed :{
+            ...mapGetters(['userInfo']),
         },
         mounted(){
 
@@ -107,7 +98,14 @@
                 }
 
                 let routeLink = path.resolve(t.basePath,routePath)
+                
+                if (routeLink == '/userRevise/:id(\\d+)'){
 
+                    // console.log(this.userInfo.user_id)
+
+                    routeLink = '/userRevise/'+ this.userInfo.user_id
+                }
+                
                 return routeLink
             },
             onClickAAA(link){
@@ -122,12 +120,8 @@
 
 <style lang="less" scoped>
     .sidebar-item{
-        .item-icon{
-            width:1.6em;
-            font-size:16px;
-            color: #bfcbd9;
-            vertical-align: -0.05em;
-            /*fill: currentColor;*/
+        .svg-icon {
+            margin-right: 16px;
         }
     }
 
